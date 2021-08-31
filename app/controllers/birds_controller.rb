@@ -16,4 +16,18 @@ class BirdsController < ApplicationController
     end
   end
 
+  # POST /birds
+  def create
+    bird = Bird.new(bird_params)
+        if bird.save
+            redirect_to birds_url
+        else
+            render json: { error: "unsuccessfull" }, status: :not_found
+        end
+  end
+
+  def  bird_params
+        params.require(:bird).permit(:name, :species)
+    end
+
 end
